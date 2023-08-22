@@ -1,6 +1,6 @@
 # Fusion Shop - E-Commerce Mobile
 
-![Fusion Shop Logo](images\logo-fusion-shop.png)
+![Fusion Shop Logo](images/logo-fusion-shop.png)
 
 Este é um projeto em grupo desenvolvido como parte do programa da **Imã Tech** em colaboração com a **Novo Mundo**. O projeto, chamado **Todas Tech**, é uma formação full-stack exclusivamente para mulheres, com foco em criar um aplicativo de e-commerce mobile para produtos de tecnologia. Nós, a equipe **Code Fusion**, desenvolvemos o aplicativo que se chama **Fusion Shop**, incluindo sua identidade visual.
 
