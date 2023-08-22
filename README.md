@@ -32,7 +32,7 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 1. **Clone o Repositório:**
 
    ```bash
-   git clone code-fusion-ima/hackadev.git
+   git clone git@github.com:code-fusion-ima/hackadev.git
 
 2.Navegue até o Diretório do Projeto:
 
@@ -53,16 +53,16 @@ flutter run
 - [Danúbia Ferreira](URL-do-LinkedIn)
 - [Débora Barbosa](https://www.linkedin.com/in/debora--barbosa)
 - [Denise Schirmer](URL-do-LinkedIn)
-- [Janine Oliveira](URL-do-LinkedIn)
+- [Janine Oliveira (monitora da equipe)](URL-do-LinkedIn)
 - [Jordana Carneiro](URL-do-LinkedIn)
-- [Luana Souza](https://www.linkedin.com/in/luana-souza-dev/)
+- [Luana Souza (vice-monitora da equipe)](https://www.linkedin.com/in/luana-souza-dev/)
 - [Sarah Silva](https://www.linkedin.com/in/sarah-rayssa)
 - [Tahene Carvalho](https://www.linkedin.com/in/tahene-carvalho-4492bb228/)
 - [Viviane Canuto](URL-do-LinkedIn)
 
 ### Contato
 
-Para obter mais informações sobre o projeto ou entrar em contato com a equipe, você pode nos encontrar no LinkedIn ou enviar um e-mail para [endereço-de-email@exemplo.com](mailto:endereço-de-email@exemplo.com).
+Para obter mais informações sobre o projeto ou entrar em contato com a equipe, você pode nos encontrar no LinkedIn ou enviar um e-mail para [codefusion.ima@gmail.com](mailto:endereço-de-email@exemplo.com).
 
 ### Sobre o Projeto
 
