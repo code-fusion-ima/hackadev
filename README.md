@@ -50,7 +50,7 @@ flutter run
 
 ### Contribuidoras
 - [Brunna Gualberto](URL-do-LinkedIn)
-- [Danúbia Ferreira](URL-do-LinkedIn)
+- [Danúbia Ferreira](https://www.linkedin.com/in/dancarvalho09/)
 - [Débora Barbosa](https://www.linkedin.com/in/debora--barbosa)
 - [Denise Schirmer](URL-do-LinkedIn)
 - [Janine Oliveira (monitora da equipe)](URL-do-LinkedIn)
