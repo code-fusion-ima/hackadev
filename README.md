@@ -58,7 +58,7 @@ flutter run
 - [Luana Souza (vice-monitora da equipe)](https://www.linkedin.com/in/luana-souza-dev/)
 - [Sarah Silva](https://www.linkedin.com/in/sarah-rayssa)
 - [Tahene Carvalho](https://www.linkedin.com/in/tahene-carvalho-4492bb228/)
-- [Viviane Canuto](URL-do-LinkedIn)
+- [Viviane Canuto](https://www.linkedin.com/in/viviane-canuto-a14274212/)
 
 ### Contato
 
