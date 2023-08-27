@@ -2,9 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   another_carousel_pro:
-
     dependency: "direct main"
-
     description:
       name: another_carousel_pro
       sha256: "18a69ab3317ddd57e23125792f21984205cf81da32029f8032c3cc0f34d56ee1"
@@ -47,12 +45,10 @@ packages:
     dependency: transitive
     description:
       name: collection
-
       sha256: f092b211a4319e98e5ff58223576de6c2803db36221657b46c82574721240687
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
-
   fake_async:
     dependency: transitive
     description:
@@ -79,7 +75,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-
   intl:
     dependency: "direct main"
     description:
@@ -88,7 +83,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.0"
-
   lints:
     dependency: transitive
     description:
@@ -109,12 +103,10 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-
       sha256: "9528f2f296073ff54cb9fee677df673ace1218163c3bc7628093e7eed5203d41"
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-
   meta:
     dependency: transitive
     description:
@@ -140,12 +132,10 @@ packages:
     dependency: transitive
     description:
       name: source_span
-
       sha256: "53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c"
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-
   stack_trace:
     dependency: transitive
     description:
@@ -182,12 +172,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-
       sha256: "75760ffd7786fffdfb9597c35c5b27eaeec82be8edfb6d71d32651128ed7aab8"
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-
   vector_math:
     dependency: transitive
     description:
@@ -196,7 +184,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-
   web:
     dependency: transitive
     description:
@@ -207,5 +194,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-
   flutter: ">=1.16.0"
