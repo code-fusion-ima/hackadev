@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 
-//my own imports
+
+//Importação dos componentes
 import 'package:fusion_shop_app/components/horizontal_listview.dart';
 import 'package:fusion_shop_app/components/recents_products_home.dart';
+import 'package:fusion_shop_app/components/bottom_bar.dart';
+
 
 void main() {
   runApp(
@@ -25,6 +28,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+   int _currentIndex = 0; // Índice para controlar a aba selecionada na BottomBar
+
+  // Função chamada quando uma aba da BottomBar é pressionada
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget image_carousel = new Container(
@@ -154,12 +166,19 @@ class _HomePageState extends State<HomePage> {
         ),
         
         //grid view
-        Container(
+        SizedBox(
+
           height: 320,
           child: RecentsProducts(),
         ),
       ],
     ),
+
+    // Barra de navegação inferior
+    bottomNavigationBar: BottomBar(currentIndex: _currentIndex),
    );
   }
 }
+
+
+
