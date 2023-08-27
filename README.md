@@ -68,4 +68,4 @@ Para obter mais informações sobre o projeto ou entrar em contato com a equipe,
 
 Este projeto é parte do programa da **Imã Tech** em colaboração com a **Novo Mundo**. Agradecemos pelo apoio e pela oportunidade de participar deste programa incrível! 🚀🌟
 
-![Imã Tech Logo](images\logo-ima-tech-white.webp)
+![Imã Tech Logo](images/logo-ima-tech.png)
