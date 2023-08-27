@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 
+
 //Importação dos componentes
 import 'package:fusion_shop_app/components/horizontal_listview.dart';
 import 'package:fusion_shop_app/components/recents_products_home.dart';
@@ -166,6 +167,7 @@ class _HomePageState extends State<HomePage> {
         
         //grid view
         SizedBox(
+
           height: 320,
           child: RecentsProducts(),
         ),
@@ -177,5 +179,6 @@ class _HomePageState extends State<HomePage> {
    );
   }
 }
+
 
 

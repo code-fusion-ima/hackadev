@@ -74,7 +74,9 @@ class SingleProduct extends StatelessWidget {
               footer: Container(
                 color: Colors.white70,
                 child: ListTile(
-                  leading: Text(productName, style: const TextStyle(fontWeight: FontWeight.bold)
+
+                  leading: Text(productName, style: TextStyle(fontWeight: FontWeight.bold)
+
                   ),
                 ),
               ),
