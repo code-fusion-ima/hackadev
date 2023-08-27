@@ -55,7 +55,7 @@ flutter run
 - [Denise Schirmer](URL-do-LinkedIn)
 - [Janine Oliveira](https://www.linkedin.com/in/janine-de-oliveira/)
 - [Jordana Carneiro](http://linkedin.com/in/jordana-alves-carneiro-774879161/)
-- [Luana Souza](https://www.linkedin.com/in/luana-souza-dev/)
+- [Luana Souza - ](https://www.linkedin.com/in/luana-souza-dev/)
 - [Sarah Silva](https://www.linkedin.com/in/sarah-rayssa/)
 - [Tahene Carvalho](https://www.linkedin.com/in/tahene-carvalho-4492bb228/)
 - [Viviane Canuto](https://www.linkedin.com/in/viviane-canuto-a14274212/)
