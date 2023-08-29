@@ -32,8 +32,9 @@ class ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
     // Filtra os produtos pela categoria selecionada.
-    List<Product> filteredProducts =
-        products.where((product) => product.category == widget.category).toList();
+    List<Product> filteredProducts = products
+        .where((product) => product.category == widget.category)
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -45,14 +46,14 @@ class ProductListState extends State<ProductList> {
           const SizedBox(height: 15.0),
           // Grade de cartões de produtos.
           Container(
-            padding: const EdgeInsets.only(right: 15.0),
+            padding: const EdgeInsets.only(right: 5.0, left: 5.0),
             width: MediaQuery.of(context).size.width - 30.0,
             height: MediaQuery.of(context).size.height - 50.0,
             child: GridView.count(
               crossAxisCount: 2,
               primary: false,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 15.0,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0,
               childAspectRatio: 0.8,
               children: filteredProducts.map((product) {
                 return _buildCard(
@@ -74,7 +75,7 @@ class ProductListState extends State<ProductList> {
 Widget _buildCard(Product product, context) {
   return Padding(
     padding:
-        const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+        const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 3.0),
     child: InkWell(
       onTap: () {
         // Navega para a página de detalhes do produto.
@@ -113,10 +114,10 @@ Widget _buildCard(Product product, context) {
               ),
             ),
             Hero(
-              tag: product.imagePath,
+              tag: product.imagePath, // Tag para animação Hero
               child: Container(
-                height: 95.0,
-                width: 95.0,
+                height: 80.0,
+                width: 80.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(product.imagePath),
@@ -125,26 +126,31 @@ Widget _buildCard(Product product, context) {
                 ),
               ),
             ),
-            const SizedBox(height: 7.0),
+            const SizedBox(height: 3.5),
             Text(
               formatPrice(product.price),
               style: const TextStyle(
                 color: Color(0xFFD155A8),
                 fontFamily: 'Varela',
-                fontSize: 14.0,
+                fontSize: 16.0,
               ),
             ),
-            Text(
-              product.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xFFD155A8),
-                fontFamily: 'Varela',
-                fontSize: 14.0,
+            Container(
+              height: 40.0,
+              child: Text(
+                product.name,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  color: Color(0xFFD155A8),
+                  fontFamily: 'Varela',
+                  fontSize: 14.0,
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(3.0),
               child: Container(
                 color: const Color(0xFFD155A8),
                 height: 1.0,
@@ -152,7 +158,8 @@ Widget _buildCard(Product product, context) {
             ),
             // Exibe opções para adicionar ao carrinho.
             Padding(
-              padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+              padding:
+                  const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -214,17 +221,15 @@ class Product {
   final bool isAddedToCart;
 
   // Construtor para a classe 'Product'.
-  Product({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.imagePath,
-    this.isFavorite = false,
-    required this.description,
-    required this.category,
-    this.isAddedToCart = false
-
-  });
+  Product(
+      {required this.id,
+      required this.name,
+      required this.price,
+      required this.imagePath,
+      this.isFavorite = false,
+      required this.description,
+      required this.category,
+      this.isAddedToCart = false});
 }
 
 // Lista de produtos (simulando um JSON)
