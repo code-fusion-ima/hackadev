@@ -62,7 +62,7 @@ flutter run
 
 ### Contato
 
-Para obter mais informações sobre o projeto ou entrar em contato com a equipe, você pode nos encontrar no LinkedIn ou enviar um e-mail para [endereço-de-email@exemplo.com](mailto:endereço-de-email@exemplo.com).
+Para obter mais informações sobre o projeto ou entrar em contato com a equipe, você pode nos encontrar no LinkedIn ou enviar um e-mail para [codefusion.ima@gmail.com](mailto:endereço-de-email@exemplo.com).
 
 ### Sobre o Projeto
 
