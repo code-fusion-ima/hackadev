@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
+import 'related_products.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -139,6 +140,7 @@ class ProductDetailState extends State<ProductDetail> {
               ),
             ),
           ),
+          Relatedproduct(selectedProduct: widget.product)
         ],
       ),
       bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
