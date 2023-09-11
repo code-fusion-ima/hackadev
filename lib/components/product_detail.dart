@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -14,13 +15,6 @@ class ProductDetail extends StatefulWidget {
 class ProductDetailState extends State<ProductDetail> {
   int _currentIndex = 1; // Índice para controlar a aba selecionada na BottomBar
 
-  // Função chamada quando uma aba da BottomBar é pressionada
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +25,8 @@ class ProductDetailState extends State<ProductDetail> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFFFFFFF)),
           onPressed: () {
-            Navigator.of(context).pop(); // Fecha a página ao pressionar o botão Voltar
+            Navigator.of(context)
+                .pop(); // Fecha a página ao pressionar o botão Voltar
           },
         ),
         title: const Text(
@@ -44,7 +39,8 @@ class ProductDetailState extends State<ProductDetail> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
+            icon:
+                const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
             onPressed: () {
               // Adicione ação para lidar com notificações aqui
             },
@@ -139,9 +135,102 @@ class ProductDetailState extends State<ProductDetail> {
               ),
             ),
           ),
+          const SizedBox(height: 20.0),
+          Center(
+            child: RatingBar.builder(
+              initialRating: 3,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Avaliações de Clientes',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // Exibir as avaliações dos clientes aqui
+          _buildProductReviews(),
         ],
       ),
-      bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
+      bottomNavigationBar:
+          BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
     );
   }
+
+  Widget _buildProductReviews() {
+    // Você pode adicionar suas avaliações aqui ou obtê-las de algum lugar
+    return Column(
+      children: [
+        ListTile(
+          title: Text('User 1'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RatingBar.builder(
+                initialRating: 5.0,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  // Não faça nada aqui, pois é apenas leitura
+                },
+              ),
+              Text('Excelente produto!'),
+            ],
+          ),
+        ),
+        ListTile(
+          title: Text('User 2'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RatingBar.builder(
+                initialRating: 4.0,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  // Não faça nada aqui, pois é apenas leitura
+                },
+              ),
+              Text('Muito bom.'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String formatPrice(double price) {
+  // Implemente a lógica de formatação do preço aqui
+  return '\$${price.toStringAsFixed(2)}';
 }

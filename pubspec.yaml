@@ -1,23 +1,23 @@
 name: fusion_shop_app
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: ">=2.17.0 <3.0.0" # Defina a versão do Dart SDK para suportar null safety
 
 dependencies:
   flutter:
     sdk: flutter
   another_carousel_pro: ^1.0.0
-  intl: ^0.17.0 
-    
+  intl: ^0.17.0
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  # another_carousel_pro: ^1.0.0
+  # Adicione outras dependências de desenvolvimento aqui
 
 flutter:
   uses-material-design: true
@@ -28,5 +28,4 @@ flutter:
     - images/produtos/eletrodomesticos/
     - images/produtos/smartphones/
     - images/produtos/smartv/
-  
-
+# Não defina 'dependencies' novamente aqui
