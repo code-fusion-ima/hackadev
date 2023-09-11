@@ -34,20 +34,23 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 1. **Clone o Repositório:**
 
    ```bash
-   git clone code-fusion-ima/hackadev.git
+    git clone code-fusion-ima/hackadev.git
 
-2.Navegue até o Diretório do Projeto:
+2. **Navegue até o Diretório do Projeto:**
+    
+    ```bash
+     cd hackadev
 
-cd hackadev
+3. **Instale as Dependências:**
 
-3.Instale as Dependências:
+    ```bash
+    flutter pub get
 
-flutter pub get
 
+4. **Execute o Aplicativo:**
 
-4.Execute o Aplicativo:
-
-flutter run
+    ```bash
+    flutter run
 
 
 
