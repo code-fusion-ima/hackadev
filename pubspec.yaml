@@ -4,7 +4,8 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <3.0.0" # Defina a versão do Dart SDK para suportar null safety
+  sdk: ">=3.0.6 <4.0.0"
+  #Defina a versão do Dart SDK para suportar null safety
 
 dependencies:
   flutter:

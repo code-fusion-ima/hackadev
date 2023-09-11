@@ -15,6 +15,13 @@ class ProductDetail extends StatefulWidget {
 class ProductDetailState extends State<ProductDetail> {
   int _currentIndex = 1; // Índice para controlar a aba selecionada na BottomBar
 
+  // Função chamada quando uma aba da BottomBar é pressionada
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,9 +235,4 @@ class ProductDetailState extends State<ProductDetail> {
       ],
     );
   }
-}
-
-String formatPrice(double price) {
-  // Implemente a lógica de formatação do preço aqui
-  return '\$${price.toStringAsFixed(2)}';
 }
