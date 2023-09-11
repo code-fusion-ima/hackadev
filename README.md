@@ -55,12 +55,12 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 
 |  |  |  |  |
 | ---------------- | ---------------- | ---------------- | ---------------- |
-| <img src="images/readme/Luana.jpg" width="150"> ||  <img src="images/readme/Janine.jpg" width="150"> |
-| 💻  <a href="https://www.linkedin.com/in/luana-souza-dev/" >Luana Souza</a> 🎧<br>Monitoria da equipe | | 💻 <a href="https://www.linkedin.com/in/janine-de-oliveira/">Janine Oliveira </a>🎧<br>Monitoria da equipe |
+| |<img src="images/readme/Luana.jpg" width="150"> | <img src="images/readme/Janine.jpg" width="150"> |
+| |💻  <a href="https://www.linkedin.com/in/luana-souza-dev/" >Luana Souza</a> 🎧<br>Monitoria da equipe | 💻 <a href="https://www.linkedin.com/in/janine-de-oliveira/">Janine Oliveira </a>🎧<br>Monitoria da equipe |
 | <img src="images/readme/Brunna.jpg" width="150" style="text-decoration: none;"> | <img src="images/readme/Debora.jpg" width="150"> | <img src="images/readme/Denise.jpeg" width="150"> |<img src="images/readme/Danubia.jpg" width="150"> |
-|💻<a href="">Brunna Gualberto</a> 🎧| 💻 <a href="https://www.linkedin.com/in/debora--barbosa/">Débora Barbosa</a> 🎧 | 💻  <a href="#">Denise Schirmer</a> 🎧 | 💻<a href="https://www.linkedin.com/in/dancarvalho09/"> Danúbia Ferreira</a> 🎧 |
+|💻<a href="">Brunna Gualberto</a>🎧| 💻 <a href="https://www.linkedin.com/in/debora--barbosa/">Débora Barbosa</a>🎧 | 💻 <a href="#">Denise Schirmer</a>🎧 | 💻<a href="https://www.linkedin.com/in/dancarvalho09/"> Danúbia Ferreira</a>🎧 |
 | <img src="images/readme/Jordana.jpeg" width="150"> |  <img src="images/readme/Sarah.jpg" width="150"> |<img src="images/readme/Tahene.jpeg" width="120"> | <img src="images/readme/Viviane.jpg" width="150"> |
-| 💻<a href="http://linkedin.com/in/jordana-alves-carneiro-774879161/">Jordana Carneiro</a>  🎧 | 💻 <a href="https://www.linkedin.com/in/sarah-rayssa/">Sarah Rayssa</a> 🎧 |💻  <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228/">Tahene Carvalho</a> 🎧  | 💻  <a href="https://www.linkedin.com/in/viviane-canuto-a14274212/"> Viviane Canuto</a> 🎧 | 
+| 💻<a href="http://linkedin.com/in/jordana-alves-carneiro-774879161/">Jordana Carneiro</a>🎧 | 💻 <a href="https://www.linkedin.com/in/sarah-rayssa/">Sarah Rayssa</a>🎧 |💻  <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228/">Tahene Carvalho</a>🎧  | 💻  <a href="https://www.linkedin.com/in/viviane-canuto-a14274212/"> Viviane Canuto</a>🎧 | 
 ||||
 
 
