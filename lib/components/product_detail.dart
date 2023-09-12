@@ -1,6 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
+import 'package:rating_dialog/rating_dialog.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fusion_shop_app/components/rating_bar.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -31,7 +36,8 @@ class ProductDetailState extends State<ProductDetail> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFFFFFFF)),
           onPressed: () {
-            Navigator.of(context).pop(); // Fecha a página ao pressionar o botão Voltar
+            Navigator.of(context)
+                .pop(); // Fecha a página ao pressionar o botão Voltar
           },
         ),
         title: const Text(
@@ -44,7 +50,8 @@ class ProductDetailState extends State<ProductDetail> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
+            icon:
+                const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
             onPressed: () {
               // Adicione ação para lidar com notificações aqui
             },
@@ -139,9 +146,80 @@ class ProductDetailState extends State<ProductDetail> {
               ),
             ),
           ),
+          SizedBox(
+            height: 150.0,
+            child: Column(
+              children: [
+                const Row(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.white30,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'Avaliações do Produto',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color(0xFFD155A8),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                        color: Colors.white30,
+                      )),
+                    ),
+                    const Text(
+                      '4.9',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                          color: Color(0xFFD155A8),
+                          height: 1.0,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0),
+                    ),
+                    RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 15,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                    Rating()), // 
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
-      bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
+      bottomNavigationBar:
+          BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
     );
   }
 }
