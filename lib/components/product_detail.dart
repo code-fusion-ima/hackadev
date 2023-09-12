@@ -176,7 +176,7 @@ class ProductDetailState extends State<ProductDetail> {
                     ),
                   ),
                 ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10)),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5)),
 
                 //Botão favoritar dinâmico
                 const SizedBox( 
