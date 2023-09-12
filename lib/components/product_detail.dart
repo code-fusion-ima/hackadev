@@ -13,11 +13,17 @@ class ProductDetail extends StatefulWidget {
 
 class ProductDetailState extends State<ProductDetail> {
   int _currentIndex = 1; // Índice para controlar a aba selecionada na BottomBar
+  var relatedProduct;
+
+  void initState() {
+    super.initState();
+    relatedProduct = products.where((element) => element.category == widget.product.category).toList();
+  }
 
   // Função chamada quando uma aba da BottomBar é pressionada
   void _onTabTapped(int index) {
     setState(() {
-      _currentIndex = index;
+     _currentIndex = index;
     });
   }
 
@@ -139,9 +145,74 @@ class ProductDetailState extends State<ProductDetail> {
               ),
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
+          // ...
+
+          Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0), // Espaçamento vertical ao redor da caixa
+              padding: EdgeInsets.all(10.0), // Preenchimento interno da caixa
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 241, 214, 233), // Cor de fundo da caixa
+                borderRadius: BorderRadius.circular(10.0), // Borda arredondada da caixa
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 221, 67, 152).withOpacity(0.5), // Sombra da caixa
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,// Alinhar produtos à esquerda
+        children: [
+        Text(
+          'Produtos relacionados',
+          style: TextStyle(
+            fontFamily: 'Varela',
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color:Color(0xFFD155A8),
+          ),
+        ),
+        SizedBox(
+          height: 150.0, // Defina a altura da lista de produtos relacionados
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: relatedProduct.length,
+            itemBuilder: (context, index) {
+              final product = relatedProduct[index];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      product.imagePath,
+                      height: 80.0,
+                      width: 80.0,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(
+                      product.name,
+                      style: const TextStyle(
+                        fontFamily: 'Varela',
+                        fontSize: 16.0,
+                        color: Color(0xFFD155A8),
+                         ),
+                       ),
+                    ],
+                  ),
+               );
+             },
+           ),
+         ),
+       ], 
+     ),
+   ),
+ ),
+],
+    //bottomNavigationBar: BottomBar(currentIndex: _currentIndex),
+      )
     );
   }
 }

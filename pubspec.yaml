@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   another_carousel_pro: ^1.0.0
+  carousel_slider: ^4.2.1
+
   intl: ^0.17.0 
     
 

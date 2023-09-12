@@ -3,6 +3,7 @@ import 'bottom_bar.dart';
 import 'product_detail.dart';
 import 'package:intl/intl.dart';
 
+
 // Função que formata o preço dos produtos em string (moeda brasileira)
 String formatPrice(double price) {
   final NumberFormat formatoMoeda =
@@ -222,7 +223,7 @@ class Product {
     this.isFavorite = false,
     required this.description,
     required this.category,
-    this.isAddedToCart = false
+    this.isAddedToCart = false,
 
   });
 }
