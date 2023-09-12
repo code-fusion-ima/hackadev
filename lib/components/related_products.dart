@@ -16,13 +16,22 @@ class Relatedproduct extends StatelessWidget {
 
     // Remove o item previamente selecionado da lista
     filteredProducts.removeWhere((product) => product.id == selectedProduct.id);
-
+  
     return SizedBox(
       height: 500.0, // Defina a altura conforme necessário.
       child: ListView(
         scrollDirection: Axis.vertical, // Defina o scroll vertical.
         children: <Widget>[
           const SizedBox(height: 15.0),
+           Text(
+              "PRODUTOS RELACIONADOS",
+              style: const TextStyle(
+                color: Color(0xFFD155A8),
+                fontFamily: 'Varela',
+                fontSize: 20.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
           // Grade de cartões de produtos.
           Container(
             padding: const EdgeInsets.only(right: 5.0, left: 5.0),
@@ -94,8 +103,8 @@ Widget _buildCard(Product product, context) {
             Hero(
               tag: product.imagePath, // Tag para animação Hero
               child: Container(
-                height: 80.0,
-                width: 80.0,
+                height: 120.0,
+                width: 120.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(product.imagePath),
@@ -125,59 +134,6 @@ Widget _buildCard(Product product, context) {
                   fontFamily: 'Varela',
                   fontSize: 14.0,
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Container(
-                color: const Color(0xFFD155A8),
-                height: 1.0,
-              ),
-            ),
-            // Exibe opções para adicionar ao carrinho.
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  if (!product.isAddedToCart) ...[
-                    const Icon(
-                      Icons.shopping_basket,
-                      color: Color(0xFFD155A8),
-                      size: 20.0,
-                    ),
-                    const Text(
-                      'Adicionar ao carrinho',
-                      style: TextStyle(
-                        fontFamily: 'Varela',
-                        color: Color(0xFFD155A8),
-                        fontSize: 13.0,
-                      ),
-                    ),
-                  ],
-                  if (product.isAddedToCart) ...[
-                    const Icon(
-                      Icons.remove_circle_outline,
-                      color: Color(0xFFD155A8),
-                      size: 12.0,
-                    ),
-                    const Text(
-                      '1',
-                      style: TextStyle(
-                        fontFamily: 'Varela',
-                        color: Color(0xFFD155A8),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    const Icon(
-                      Icons.add_circle_outline,
-                      color: Color(0xFFD155A8),
-                      size: 12.0,
-                    ),
-                  ],
-                ],
               ),
             ),
           ],
