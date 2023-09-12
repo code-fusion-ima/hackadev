@@ -13,6 +13,7 @@ dependencies:
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.1 #rating bar package
   like_button: ^2.0.5 #favorite
+  qr_flutter: ^4.1.0
     
 
 dev_dependencies:
