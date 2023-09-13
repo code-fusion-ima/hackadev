@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:like_button/like_button.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
+import 'related_products.dart';
 
 class CartItems {
   static final CartItems _singleton = CartItems._internal();
@@ -306,6 +307,7 @@ class ProductDetailState extends State<ProductDetail> {
                 ],
               ),
             ), // Fim da restruturação do "Adicionar ao carrinho"
+            Relatedproduct(selectedProduct: widget.product)
           ],
         ),
         bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
