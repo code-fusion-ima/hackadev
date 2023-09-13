@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   another_carousel_pro: ^1.0.0
+  carousel_slider: ^4.2.1
+
+
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.1 #rating bar package
   like_button: ^2.0.5 #favorite

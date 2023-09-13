@@ -3,6 +3,7 @@ import 'bottom_bar.dart';
 import 'product_detail.dart';
 import 'package:intl/intl.dart';
 
+
 // Função que formata o preço dos produtos em string (moeda brasileira)
 String formatPrice(double price) {
   final NumberFormat formatoMoeda =
@@ -221,6 +222,19 @@ class Product {
   final bool isAddedToCart;
 
   // Construtor para a classe 'Product'.
+<<<<<<< HEAD
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.imagePath,
+    this.isFavorite = false,
+    required this.description,
+    required this.category,
+    this.isAddedToCart = false,
+
+  });
+=======
   Product(
       {required this.id,
       required this.name,
@@ -230,6 +244,7 @@ class Product {
       required this.description,
       required this.category,
       this.isAddedToCart = false});
+>>>>>>> 2c9da96c19ef712ba5a3ec0a10ff250e0a9d4187
 }
 
 // Lista de produtos (simulando um JSON)
