@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:like_button/like_button.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
+import 'related_products.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -29,7 +32,8 @@ class ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 217, 70, 119),
         elevation: 0.0,
@@ -62,7 +66,10 @@ class ProductDetailState extends State<ProductDetail> {
           const SizedBox(height: 15.0),
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
+            child: Column(        // Ajuste inicial para implementar o rating bar
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [         // Ajuste final para implementar o rating bar
+                Text(
               // Título do produto
               widget.product.name,
               textAlign: TextAlign.center,
@@ -71,9 +78,26 @@ class ProductDetailState extends State<ProductDetail> {
                 fontSize: 42.0,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFD155A8),
+               ),
               ),
-            ),
+              const SizedBox(height: 10),   // Início do rating bar
+              Row(
+                children: [
+                  RatingBar.builder(
+                    initialRating: 3.5,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 25,
+                    itemBuilder: (context, _)=> const Icon(Icons.star, color: Colors.amber), onRatingUpdate: (rating) {} ),
+                  const SizedBox(width: 5),
+                  const Text("(1278)"), // Fim do rating bar incluindo a quantidade (estática) de avaliações já realizadas.
+                ],
+              ),
+            ],
           ),
+        ),
           const SizedBox(height: 15.0),
           Hero(
             tag: widget.product.imagePath,
@@ -111,10 +135,10 @@ class ProductDetailState extends State<ProductDetail> {
           const SizedBox(height: 20.0),
           Center(
             child: SizedBox(
-              width: MediaQuery.of(context).size.width - 50.0,
+              width: MediaQuery.of(context).size.width - 60.0,
               child: Text(
                 widget.product.description, // Descrição do produto
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify, // Alterado o alinhamento para justificado 
                 style: const TextStyle(
                   fontFamily: 'Varela',
                   fontSize: 16.0,
@@ -123,26 +147,50 @@ class ProductDetailState extends State<ProductDetail> {
               ),
             ),
           ),
-          const SizedBox(height: 20.0),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width - 50.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-                color: const Color(0xFFD155A8),
-              ),
-              child: const Center(
-                child: Text(
-                  'Adicionar ao carrinho',
-                  style: TextStyle(
-                    fontFamily: 'Varela',
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          
+          // Início da restruturação do "Adicionar ao carrinho" 
+          Container(
+            height: 80,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    //ADICIONAR ROTA DO CARRINHO AQUI
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => Cart()
+                    //     )
+                    // );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.purple[400],
+                    ),
+                    child: const Center(
+                      child: Text ("Adicionar ao carrinho", style: TextStyle(
+                        fontFamily: 'Varela',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5)),
+
+                //Botão favoritar dinâmico
+                const SizedBox( 
+                  width: 50,
+                  child: LikeButton(),
+                  )
+              ],
             ),
           ),
           // ...
@@ -214,5 +262,6 @@ class ProductDetailState extends State<ProductDetail> {
     //bottomNavigationBar: BottomBar(currentIndex: _currentIndex),
       )
     );
+    
   }
 }
