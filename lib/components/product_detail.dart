@@ -1,10 +1,8 @@
-import 'bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fusion_shop_app/components/rating_bar.dart';
 import 'package:like_button/like_button.dart';
 import 'product_list.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+import 'bottom_bar.dart';
 import 'related_products.dart';
 
 class CartItems {
@@ -137,29 +135,12 @@ class ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 217, 70, 119),
-        elevation: 0.0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFFFFFFF)),
-          onPressed: () {
-            Navigator.of(context)
-                .pop(); // Fecha a página ao pressionar o botão Voltar
-          },
-        ),
-        title: const Text(
-          'Detalhes do Produto',
-          style: TextStyle(
-            fontFamily: 'Varela',
-            fontSize: 20.0,
-            color: Color(0xFFFFFFFF),
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon:
-                const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 217, 70, 119),
+          elevation: 0.0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Color(0xFFFFFFFF)),
             onPressed: () {
               Navigator.of(context).pop(); // Fecha a página ao pressionar o botão Voltar
             },
@@ -272,6 +253,7 @@ class ProductDetailState extends State<ProductDetail> {
                 ),
               ),
             ),
+
             // Início da restruturação do "Adicionar ao carrinho"
             Container(
               height: 80,
@@ -325,78 +307,6 @@ class ProductDetailState extends State<ProductDetail> {
                 ],
               ),
             ), // Fim da restruturação do "Adicionar ao carrinho"
-            SizedBox(
-            height: 150.0,
-            child: Column(
-              children: [
-                const Row(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.white30,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'Avaliações do Produto',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color(0xFFD155A8),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      child: DecoratedBox(
-                          decoration: BoxDecoration(
-                        color: Colors.white30,
-                      )),
-                    ),
-                    const Text(
-                      '4.9',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          color: Color(0xFFD155A8),
-                          height: 1.0,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0),
-                    ),
-                    RatingBar.builder(
-                      initialRating: 3,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 15,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (rating) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                    Rating()), // 
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
             Relatedproduct(selectedProduct: widget.product)
           ],
         ),
