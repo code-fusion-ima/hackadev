@@ -7,6 +7,7 @@ import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:fusion_shop_app/components/horizontal_listview.dart';
 import 'package:fusion_shop_app/components/recents_products_home.dart';
 import 'package:fusion_shop_app/components/bottom_bar.dart';
+import 'package:fusion_shop_app/components/cart.dart';
 
 
 void main() {
@@ -65,7 +66,12 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Fusion Shop'),
         actions: <Widget>[
           IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.white,)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart, color: Colors.white,)),
+          IconButton(onPressed: ()
+            async {
+              Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Carrinho()),
+              );
+              }, icon: Icon(Icons.shopping_cart, color: Colors.white,)),
         ],
       ),
       drawer: Drawer(
