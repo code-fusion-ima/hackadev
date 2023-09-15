@@ -4,6 +4,8 @@ import 'package:like_button/like_button.dart';
 import 'product_list.dart';
 import 'bottom_bar.dart';
 import 'related_products.dart';
+import 'rating_bar.dart';
+import 'custom_app_bar.dart';
 
 class CartItems {
   static final CartItems _singleton = CartItems._internal();
@@ -122,46 +124,14 @@ class ProductDetail extends StatefulWidget {
 }
 
 class ProductDetailState extends State<ProductDetail> {
-  int _currentIndex = 1; // Índice para controlar a aba selecionada na BottomBar
-
-  // Função chamada quando uma aba da BottomBar é pressionada
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 217, 70, 119),
-          elevation: 0.0,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Color(0xFFFFFFFF)),
-            onPressed: () {
-              Navigator.of(context).pop(); // Fecha a página ao pressionar o botão Voltar
-            },
-          ),
-          title: const Text(
-            'Detalhes do Produto',
-            style: TextStyle(
-              fontFamily: 'Varela',
-              fontSize: 20.0,
-              color: Color(0xFFFFFFFF),
-            ),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.notifications_none, color: Color(0xFFFFFFFF)),
-              onPressed: () {
-                // Adicione ação para lidar com notificações aqui
-              },
-            ),
-          ],
-        ),
+        appBar: CustomAppBar(
+          title: 'Detalhes do Produto',
+          backgroundColor: Color.fromARGB(255, 217, 70, 119),),
         body: ListView(
           children: [
             const SizedBox(height: 15.0),
@@ -169,7 +139,7 @@ class ProductDetailState extends State<ProductDetail> {
               padding: const EdgeInsets.only(left: 20.0),
               child: Column(
                 // Ajuste inicial para implementar o rating bar
-                crossAxisAlignment: CrossAxisAlignment.end,
+                //crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   // Ajuste final para implementar o rating bar
                   Text(
@@ -183,24 +153,24 @@ class ProductDetailState extends State<ProductDetail> {
                       color: Color(0xFFD155A8),
                     ),
                   ),
-                  const SizedBox(height: 10), // Início do rating bar
-                  Row(
-                    children: [
-                      RatingBar.builder(
-                        initialRating: 3.5,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 25,
-                        itemBuilder: (context, _) =>
-                            const Icon(Icons.star, color: Colors.amber),
-                        onRatingUpdate: (rating) {},
-                      ),
-                      const SizedBox(width: 5),
-                      const Text("(1278)"), // Fim do rating bar incluindo a quantidade (estática) de avaliações já realizadas.
-                    ],
-                  ),
+                  // const SizedBox(height: 10), // Início do rating bar
+                  // Row(
+                  //   children: [
+                  //     RatingBar.builder(
+                  //       initialRating: 3.5,
+                  //       minRating: 1,
+                  //       direction: Axis.horizontal,
+                  //       allowHalfRating: true,
+                  //       itemCount: 5,
+                  //       itemSize: 25,
+                  //       itemBuilder: (context, _) =>
+                  //           const Icon(Icons.star, color: Colors.amber),
+                  //       onRatingUpdate: (rating) {},
+                  //     ),
+                  //     const SizedBox(width: 5),
+                  //     const Text("(1278)"), // Fim do rating bar incluindo a quantidade (estática) de avaliações já realizadas.
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -244,7 +214,8 @@ class ProductDetailState extends State<ProductDetail> {
                 width: MediaQuery.of(context).size.width - 60.0,
                 child: Text(
                   widget.product.description, // Descrição do produto
-                  textAlign: TextAlign.justify, // Alterado o alinhamento para justificado
+                  textAlign: TextAlign
+                      .justify, // Alterado o alinhamento para justificado
                   style: const TextStyle(
                     fontFamily: 'Varela',
                     fontSize: 16.0,
@@ -274,7 +245,8 @@ class ProductDetailState extends State<ProductDetail> {
                         onPressed: () {
                           setState(() {
                             final productImagePath = widget.product.imagePath;
-                            final productImageProvider = AssetImage(productImagePath);
+                            final productImageProvider =
+                                AssetImage(productImagePath);
                             cartImage.imagens.add(productImageProvider);
                             final productName = widget.product.name;
                             cartItems.items.add(productName);
@@ -298,7 +270,9 @@ class ProductDetailState extends State<ProductDetail> {
                       ),
                     ),
                   ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5)),
+                  const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 5)),
                   // Botão favoritar dinâmico
                   SizedBox(
                     width: 50,
@@ -307,10 +281,36 @@ class ProductDetailState extends State<ProductDetail> {
                 ],
               ),
             ), // Fim da restruturação do "Adicionar ao carrinho"
+            const SizedBox(height: 10), // Início do rating bar
+            Center(
+              child: Column(
+                children: [
+                  RatingBar.builder(
+                    initialRating: 3.5,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 25,
+                    itemBuilder: (context, _) =>
+                        const Icon(Icons.star, color: Colors.amber),
+                    onRatingUpdate: (rating) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Rating()),
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 5),
+                  const Text("(1278)"),
+                ],
+              ),
+            ),
+
             Relatedproduct(selectedProduct: widget.product)
           ],
         ),
-        bottomNavigationBar: BottomBar(currentIndex: _currentIndex), // Barra de navegação inferior
+        bottomNavigationBar: BottomBar(), // Barra de navegação inferior
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
 import 'product_detail.dart';
 import 'package:intl/intl.dart';
+import 'custom_app_bar.dart';
 
 // Função que formata o preço dos produtos em string (moeda brasileira)
 String formatPrice(double price) {
@@ -20,15 +21,7 @@ class ProductList extends StatefulWidget {
 }
 
 class ProductListState extends State<ProductList> {
-  int _currentIndex = 2; // Índice para controlar a aba selecionada na BottomBar
-
-  // Função chamada quando uma aba da BottomBar é pressionada
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     // Filtra os produtos pela categoria selecionada.
@@ -37,10 +30,10 @@ class ProductListState extends State<ProductList> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 217, 70, 119),
-        title: Text('Produtos da Categoria: ${widget.category}'),
-      ),
+      appBar: CustomAppBar(
+          title: 'Produtos da Categoria: ${widget.category}',
+          backgroundColor: Color.fromARGB(255, 217, 70, 119),
+        ),
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 15.0),
@@ -66,7 +59,7 @@ class ProductListState extends State<ProductList> {
           const SizedBox(height: 15.0),
         ],
       ),
-      bottomNavigationBar: BottomBar(currentIndex: _currentIndex),
+      // bottomNavigationBar: BottomBar(),
     );
   }
 }

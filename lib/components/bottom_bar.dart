@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+import 'cart.dart';
+import 'notificationPage.dart';
+import 'profilePage.dart';
+import 'settingsPage.dart';
+import 'package:fusion_shop_app/main.dart';
 
-class BottomBar extends StatelessWidget {
-  final int currentIndex;
+class BottomBar extends StatefulWidget {
+  const BottomBar({Key? key}) : super(key: key);
 
-  const BottomBar({required this.currentIndex, Key? key}) : super(key: key);
+  @override
+  _BottomBarState createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
+  // Defina a página inicial como a página inicial
+  Widget _currentPage = HomePage();
+
+  final List<Map<String, dynamic>> _pages = [
+    {'page': HomePage(), 'icon': Icons.home},
+    {'page': Carrinho(), 'icon': Icons.shopping_cart},
+    {'page': NotificationPage(), 'icon': Icons.notifications_active},
+    {'page': ProfilePage(), 'icon': Icons.person},
+    {'page': SettingsPage(), 'icon': Icons.settings},
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // Lista de ícones para a BottomBar
-    List<IconData> icons = [
-      Icons.home,
-      Icons.favorite,
-      Icons.notifications_active,
-      Icons.person,
-      Icons.settings,
-    ];
-
-    // Retorna uma BottomAppBar com uma série de ícones
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
@@ -32,27 +41,42 @@ class BottomBar extends StatelessWidget {
           ),
           color: Colors.white,
           border: Border.all(
-            color: Color.fromARGB(255, 217, 70, 119), // Cor da borda personalizada
-            width: 2.0, // Largura da borda
+            color: Color.fromARGB(255, 217, 70, 119),
+            width: 2.0,
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            for (int i = 0; i < icons.length; i++)
-              // Aplica escala apenas ao ícone selecionado para criar um efeito visual
-              Transform.scale(
-                scale: currentIndex == i ? 1.2 : 1.0, // Aumenta o tamanho para o ícone selecionado
-                child: Icon(
-                  icons[i],
-                  color: currentIndex == i
-                      ? Color.fromARGB(255, 217, 70, 119) // Cor personalizada para o ícone selecionado
-                      : Colors.grey, // Cor cinza para ícones não selecionados
-                ),
-              ),
-          ],
+          children: _buildButtons(),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildButtons() {
+    return _pages.asMap().entries.map((entry) {
+      final int index = entry.key;
+      final Map<String, dynamic> pageData = entry.value;
+      final Widget page = pageData['page'];
+
+      return IconButton(
+        icon: Icon(
+          pageData['icon'],
+          size: 30.0,
+          color: _currentPage == page ? Colors.pink : Colors.black,
+        ),
+        onPressed: () {
+          setState(() {
+            _currentPage = page;
+          });
+
+          // Navegue para a página correspondente
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        },
+      );
+    }).toList();
   }
 }
