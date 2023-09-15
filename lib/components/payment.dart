@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'custom_app_bar.dart';
 
 void main() => runApp(const RadioExampleApp());
 
@@ -11,15 +12,9 @@ class RadioExampleApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Método de Pagamento'),
+        appBar: CustomAppBar(
+          title: 'Método de Pagamento',
           backgroundColor: Color.fromARGB(255, 217, 70, 119),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Ícone de voltar
-            onPressed: () {
-              Navigator.of(context).pop(); // Volta à tela anterior
-            },
-          ),
         ),
         body: const Center(
           child: RadioExample(),
@@ -108,10 +103,10 @@ class CredcardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pagamento com Cartão de Crédito'),
-        backgroundColor: Color.fromARGB(255, 217, 70, 119),
-      ),
+      appBar: CustomAppBar(
+          title: 'Cartão de Crédito',
+          backgroundColor: Color.fromARGB(255, 217, 70, 119),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -197,16 +192,10 @@ class PixScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('PIX'),
-        backgroundColor: Color.fromARGB(255, 217, 70, 119),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ícone de voltar
-          onPressed: () {
-            Navigator.of(context).pop(); // Volta à tela anterior
-          },
+      appBar: CustomAppBar(
+          title: 'Pix',
+          backgroundColor: Color.fromARGB(255, 217, 70, 119),
         ),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
