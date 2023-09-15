@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fusion_shop_app/components/payment.dart';
 import 'package:fusion_shop_app/components/product_detail.dart';
 import 'package:fusion_shop_app/components/product_list.dart';
+import 'custom_app_bar.dart';
+import 'bottom_bar.dart';
 
 class Carrinho extends StatefulWidget {
   @override
@@ -18,10 +20,10 @@ class CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 217, 70, 119), // Cor do AppBar
-        title: Text('Página do Carrinho'),
-      ),
+      appBar: CustomAppBar(
+          title: 'Página do Carrinho',
+          backgroundColor: Color.fromARGB(255, 217, 70, 119),
+        ),
       body: 
        Column(
         children: [
@@ -41,6 +43,7 @@ class CarrinhoState extends State<Carrinho> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }
