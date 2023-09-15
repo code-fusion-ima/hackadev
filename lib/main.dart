@@ -54,15 +54,15 @@ class _HomePageState extends State<HomePage> {
       appBar: new AppBar(
         backgroundColor: Color.fromARGB(255, 217, 70, 119),
         title: const Text('Fusion Shop'),
-        // actions: <Widget>[
-        //   IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.white,)),
-        //   IconButton(onPressed: ()
-        //     async {
-        //       Navigator.of(context).push(
-        //       MaterialPageRoute(builder: (context) => Carrinho()),
-        //       );
-        //       }, icon: Icon(Icons.shopping_cart, color: Colors.white,)),
-        // ],
+        actions: <Widget>[
+          IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.white,)),
+          IconButton(onPressed: ()
+            async {
+              Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Carrinho()),
+              );
+              }, icon: Icon(Icons.shopping_cart, color: Colors.white,)),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
