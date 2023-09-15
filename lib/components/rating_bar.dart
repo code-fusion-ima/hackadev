@@ -29,8 +29,8 @@ class RatingState extends State<Rating> {
             ProductRatingWidget(
               averageRating: averageRating,
               onRatingSubmitted: (response) {
-                if (response.rating < 3.0) {
-                  // Adiciona uma avaliação fictícia se for menor que 3
+                if (true) {
+                  // Adiciona uma avaliação fictícia para qualquer valor de classificação
                   fictitiousReviews.add(Review(
                       'Cliente ${fictitiousReviews.length + 1}',
                       response.rating,
