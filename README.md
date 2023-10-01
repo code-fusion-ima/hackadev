@@ -45,10 +45,12 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 
     ```bash
     flutter pub get
+    npm install na pasta back
 
 4. **Execute o Aplicativo:**
 
     ```bash
+    npx json-server product.json na pasta back
     flutter run
 
 ### Desenvolvedoras
