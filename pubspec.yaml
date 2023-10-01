@@ -15,6 +15,9 @@ dependencies:
   like_button: ^2.0.5 #favorite
   qr_flutter: ^4.1.0
   rating_dialog: ^2.0.4
+  http: ^1.1.0
+  fluttertoast: ^8.2.2
+
     
 
 dev_dependencies:
@@ -25,6 +28,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - images/
     - images/carousel/
     - images/home/
     - images/icons/
@@ -32,5 +36,6 @@ flutter:
     - images/produtos/smartphones/
     - images/produtos/smartv/
     - images/readme/
+    - back/
   
 
