@@ -55,15 +55,14 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 
 ### Desenvolvedoras
 
-|  |  |  |  |
-| ---------------- | ---------------- | ---------------- | ---------------- |
-| |<a href="https://www.linkedin.com/in/luana-souza-dev"><img src="images/readme/Luana.jpg" width="150"></a>|  <a href="https://www.linkedin.com/in/janine-de-oliveira"><img src="images/readme/Janine.jpg" width="150"></a>|
-| |💻 <a href="https://www.linkedin.com/in/luana-souza-dev">Luana Souza</a> 🎧<br>Monitoria da equipe | 💻 <a href="https://www.linkedin.com/in/janine-de-oliveira">Janine Oliveira </a> 🎧<br>Monitoria da equipe |
-| <a href="#"><img src="images/readme/Brunna.jpg" width="150"></a> |  <a href="https://www.linkedin.com/in/debora--barbosa"><img src="images/readme/Debora.jpg" width="150"></a> | <a href="#"><img src="images/readme/Denise.jpeg" width="150"></a> |<a href="https://www.linkedin.com/in/dancarvalho09"><img src="images/readme/Danubia.jpg" width="150"></a> |
-|💻 <a href="#">Brunna Gualberto</a> 🎧| 💻 <a href="https://www.linkedin.com/in/debora--barbosa">Débora Barbosa</a> 🎧 | 💻 <a href="#">Denise Schirmer</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/dancarvalho09"> Danúbia Ferreira</a> 🎧 |
-| <a href="http://linkedin.com/in/jordana-alves-carneiro-774879161"><img src="images/readme/Jordana.jpeg" width="150"></a> |  <a href="https://www.linkedin.com/in/sarah-rayssa"><img src="images/readme/Sarah.jpg" width="150"></a> | <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228"><img src="images/readme/Tahene.jpeg" width="120"></a> | <a href="https://www.linkedin.com/in/viviane-canuto-a14274212"><img src="images/readme/Viviane.jpg" width="150"></a> |
-| 💻 <a href="http://linkedin.com/in/jordana-alves-carneiro-774879161">Jordana Carneiro</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/sarah-rayssa">Sarah Rayssa</a> 🎧 |💻 <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228">Tahene Carvalho</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/viviane-canuto-a14274212"> Viviane Canuto</a> 🎧 | 
-||||
+|  |  |  |  |  |
+| ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
+| |<a href="https://www.linkedin.com/in/luana-souza-dev"><img src="images/readme/Luana.jpg" width="150"></a>   | <a href="https://www.linkedin.com/in/janine-de-oliveira"><img src="images/readme/Janine.jpg" width="150"></a> |  |  |
+| |💻 <a href="https://www.linkedin.com/in/luana-souza-dev">Luana Souza</a> 🎧<br>Monitoria da equipe |💻 <a href="https://www.linkedin.com/in/janine-de-oliveira">Janine Oliveira</a> 🎧<br>Monitoria da equipe |  |  |
+|||||||
+| <a href="https://www.linkedin.com/in/debora--barbosa"><img src="images/readme/Debora.jpg" width="150"></a> | <a href="http://linkedin.com/in/jordana-alves-carneiro-774879161"><img src="images/readme/Jordana.jpeg" width="150"></a> | <a href="https://www.linkedin.com/in/sarah-rayssa"><img src="images/readme/Sarah.jpg" width="150"></a> | <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228"><img src="images/readme/Tahene.jpeg" width="120"></a> | <a href="https://www.linkedin.com/in/viviane-canuto-a14274212"><img src="images/readme/Viviane.jpg" width="150"></a> |
+| 💻 <a href="https://www.linkedin.com/in/debora--barbosa">Débora Barbosa</a> 🎧 | 💻 <a href="http://linkedin.com/in/jordana-alves-carneiro-774879161">Jordana Carneiro</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/sarah-rayssa">Sarah Rayssa</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/tahene-carvalho-4492bb228">Tahene Carvalho</a> 🎧 | 💻 <a href="https://www.linkedin.com/in/viviane-canuto-a14274212">Viviane Canuto</a> 🎧 |
+|||||||
 
 
 ### Contato
