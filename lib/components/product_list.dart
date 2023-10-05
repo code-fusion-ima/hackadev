@@ -114,9 +114,7 @@ Widget _buildCard(Product product, context) {
         // Navega para a página de detalhes do produto.
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetail(
-              product: product,
-            ),
+            builder: (context) => ProductDetail(id: product.id),
           ),
         );
       },
@@ -283,7 +281,7 @@ class Product {
       'manufacturer': manufacturer,
       'stockQuantity': stockQuantity,
       'isFavorite': isFavorite,
-      'isAddedToCart': isAddedToCart, 
+      'isAddedToCart': isAddedToCart,
     };
   }
 }

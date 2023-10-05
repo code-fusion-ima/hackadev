@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:fusion_shop_app/api/getFiles.dart';
 import 'product_list.dart';
 import 'product_detail.dart';
 
 class Relatedproduct extends StatelessWidget {
-  final Product selectedProduct;
-  
+  final ProductAPI selectedProduct;
+
   const Relatedproduct({required this.selectedProduct, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Product>>(
-      future: loadProductsFromJson(), // Chama a função para carregar os produtos.
+      future:
+          loadProductsFromJson(), // Chama a função para carregar os produtos.
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Indicador de carregamento enquanto espera.
@@ -53,17 +55,18 @@ class Relatedproduct extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 30.0,
                 height: MediaQuery.of(context).size.height - 50.0,
                 child: GridView.count(
-                  crossAxisCount: 1, // Defina para 1 para exibir em colunas verticais.
+                  crossAxisCount:
+                      1, // Defina para 1 para exibir em colunas verticais.
                   primary: false,
                   crossAxisSpacing: 5.0,
                   mainAxisSpacing: 5.0,
                   childAspectRatio: 1.5,
-                  children: filteredProducts.map((product) {
-                    return _buildCard(
-                      product,
-                      context,
-                    );
-                  }).toList(),
+                  // children: filteredProducts.map((product) {
+                  //   return _buildCard(
+                  //     product,
+                  //     context,
+                  //   );
+                  // }).toList(),
                 ),
               ),
               const SizedBox(height: 15.0),
@@ -73,9 +76,9 @@ class Relatedproduct extends StatelessWidget {
       },
     );
   }
-  
+
   // Função para construir um widget de cartão de produto.
-  Widget _buildCard(Product product, context) {
+  Widget _buildCard(ProductAPI product, context) {
     return Padding(
       padding:
           const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 3.0),
@@ -85,7 +88,7 @@ class Relatedproduct extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => ProductDetail(
-                product: product,
+                id: product.id,
               ),
             ),
           );
