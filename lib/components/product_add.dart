@@ -42,7 +42,6 @@ class _AddProductState extends State<AddProduct> {
     });
   }
 
-  // Função para exibir os detalhes do produto em uma caixa de diálogo
   void exibirDetalhesProduto(BuildContext context, Product produto) async {
     final detailedProduct = await buscarDetalhesProduto(produto.id ?? 0);
 
@@ -81,14 +80,13 @@ class _AddProductState extends State<AddProduct> {
                     'Quantidade em Estoque: ${detailedProduct.stockQuantity ?? 0}',
                     style: const TextStyle(fontSize: 14),
                   ),
-                  // Adicione outros campos de detalhes aqui, se necessário
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Fecha a caixa de diálogo
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Fechar'),
               ),
@@ -106,6 +104,7 @@ class _AddProductState extends State<AddProduct> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Adicionar Produto - ${widget.category}'),
+        backgroundColor: Color.fromARGB(255, 217, 70, 119),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -128,17 +127,16 @@ class _AddProductState extends State<AddProduct> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(
                   RegExp(
-                      r'^\d+\.?\d{0,2}'), // Permite números com até 2 casas decimais
+                      r'^\d+\.?\d{0,2}'),
                 ),
               ],
               validator: (value) {
-                // Validação para garantir que o valor seja um número válido e maior que zero
                 if (value == null ||
                     double.tryParse(value) == null ||
                     double.parse(value) <= 0) {
                   return 'Por favor, insira um preço válido maior que zero.';
                 }
-                return null; // A validação passou
+                return null;
               },
             ),
             TextFormField(
@@ -155,22 +153,19 @@ class _AddProductState extends State<AddProduct> {
               controller: stockQuantityController,
               decoration:
                   const InputDecoration(labelText: 'Quantidade em Estoque*'),
-              keyboardType: TextInputType.number, // Campo de número inteiro
+              keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .digitsOnly, // Permite apenas dígitos
+                FilteringTextInputFormatter.digitsOnly,
               ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                // Validação dos campos
                 if (nameController.text.isEmpty ||
                     priceController.text.isEmpty ||
                     descriptionController.text.isEmpty ||
                     manufacturerController.text.isEmpty ||
                     stockQuantityController.text.isEmpty) {
-                  // Novo campo
                   Fluttertoast.showToast(
                       msg: 'Por favor, preencha todos os campos obrigatórios.');
                   return;
@@ -206,6 +201,9 @@ class _AddProductState extends State<AddProduct> {
                   Fluttertoast.showToast(msg: 'Erro ao cadastrar produto');
                 }
               },
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 217, 70, 119),
+              ),
               child: const Text('Salvar Produto'),
             ),
             const SizedBox(height: 20),
@@ -225,15 +223,23 @@ class _AddProductState extends State<AddProduct> {
                         onTap: () {
                           exibirDetalhesProduto(context, product);
                         },
-                        child: Padding(
+                        child: Container(
                           padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 236, 236, 236),
+                            border: Border.all(
+                              color: Color.fromARGB(255, 217, 70, 119),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 product.name ?? '',
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                    fontSize: 18, fontWeight: FontWeight.bold, color:Color.fromARGB(255, 217, 70, 119),),
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -269,7 +275,6 @@ class _AddProductState extends State<AddProduct> {
   }
 }
 
-//Rota para cadastrar produto
 Future<bool> cadastrarProduct(Product newProduct) async {
   try {
     final response = await http.post(
@@ -293,7 +298,6 @@ Future<bool> cadastrarProduct(Product newProduct) async {
   }
 }
 
-//Rota para listar produtos
 Future<List<Product>> selecionarProdutos() async {
   try {
     final response = await http.get(
@@ -331,7 +335,6 @@ Future<List<Product>> selecionarProdutos() async {
   }
 }
 
-//Rota para detalhar produto
 Future<Product?> buscarDetalhesProduto(int productId) async {
   try {
     final response = await http.get(
@@ -347,8 +350,8 @@ Future<Product?> buscarDetalhesProduto(int productId) async {
         description: produto["description"],
         imagePath: produto["imagePath"],
         price: produto["price"]?.toDouble(),
-        manufacturer: produto["manufacturer"], // Novo campo
-        stockQuantity: produto["stockQuantity"], // Novo campo
+        manufacturer: produto["manufacturer"],
+        stockQuantity: produto["stockQuantity"],
       );
     } else {
       print('Erro ao buscar detalhes do produto: ${response.statusCode}');
