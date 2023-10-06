@@ -134,3 +134,114 @@ Widget _buildCard(Product product, context) {
           ],
           color: Colors.white,
         ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  product.isFavorite
+                      ? const Icon(Icons.favorite, color: Color(0xFFD155A8))
+                      : const Icon(Icons.favorite_border,
+                          color: Color(0xFFD155A8)),
+                ],
+              ),
+            ),
+            Hero(
+              tag: product.imagePath ??
+                  '', // Use uma string vazia como valor padrão
+              child: Container(
+                height: 80.0,
+                width: 80.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(product.imagePath ??
+                        ''), // Use uma string vazia como valor padrão
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 3.5),
+            Text(
+              formatPrice(product.price),
+              style: const TextStyle(
+                color: Color(0xFFD155A8),
+                fontFamily: 'Varela',
+                fontSize: 16.0,
+              ),
+            ),
+            Container(
+              height: 40.0,
+              child: Text(
+                product.name,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  color: Color(0xFFD155A8),
+                  fontFamily: 'Varela',
+                  fontSize: 14.0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Container(
+                color: const Color(0xFFD155A8),
+                height: 1.0,
+              ),
+            ),
+            // Exibe opções para adicionar ao carrinho.
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (!product.isAddedToCart) ...[
+                    const Icon(
+                      Icons.shopping_basket,
+                      color: Color(0xFFD155A8),
+                      size: 20.0,
+                    ),
+                    const Text(
+                      'Adicionar ao carrinho',
+                      style: TextStyle(
+                        fontFamily: 'Varela',
+                        color: Color(0xFFD155A8),
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ],
+                  if (product.isAddedToCart) ...[
+                    const Icon(
+                      Icons.remove_circle_outline,
+                      color: Color(0xFFD155A8),
+                      size: 12.0,
+                    ),
+                    const Text(
+                      '1',
+                      style: TextStyle(
+                        fontFamily: 'Varela',
+                        color: Color(0xFFD155A8),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.add_circle_outline,
+                      color: Color(0xFFD155A8),
+                      size: 12.0,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
