@@ -1,19 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import 'product_list.dart';
-import 'package:flutter/services.dart';
 
-String formatPrice(double? price) {
-  if (price == null) {
-    return 'Preço não informado';
-  }
-  final NumberFormat formatoMoeda =
-      NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
-  return formatoMoeda.format(price);
-}
+import 'package:flutter/material.dart';
+import 'package:fusion_shop_app/api/getFiles.dart';
+import 'package:fusion_shop_app/components/bottom_bar.dart';
+import 'package:fusion_shop_app/components/product_detail.dart';
+import 'product_list.dart';
+import 'custom_app_bar.dart';
+import '../api/getFiles.dart';
 
 class AddProduct extends StatefulWidget {
   final String category;
@@ -25,392 +18,236 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  List<Product> products = [];
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController manufacturerController = TextEditingController();
-  final TextEditingController stockQuantityController = TextEditingController();
+
+  bool _hasExecutedOnce = false;
+  List<Product> _products = [];
+
 
   @override
   void initState() {
     super.initState();
-    selecionarProdutos().then((loadedProducts) {
-      setState(() {
-        products = loadedProducts;
+
+    if (!_hasExecutedOnce) {
+      fetchAndConvertProducts().then((products) {
+        setState(() {
+          _products = products;
+        });
       });
-    });
+      _hasExecutedOnce = true;
+    }
   }
 
-  void exibirDetalhesProduto(BuildContext context, Product produto) async {
-    final detailedProduct = await buscarDetalhesProduto(produto.id ?? 0);
+  Future<List<Product>> fetchAndConvertProducts() async {
+    List<dynamic> dynamicProducts = await ProductsCategoryList();
 
-    if (detailedProduct != null) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Detalhes do Produto'),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    List<Product> products = dynamicProducts.map((dynamicData) {
+      return Product(
+        id: dynamicData['id'],
+        name: dynamicData['name'],
+        price: dynamicData['price'].toDouble(),
+        imagePath: dynamicData['imagePath'],
+        description: dynamicData['description'],
+        category: dynamicData['category'],
+        isFavorite: dynamicData['isFavorite'],
+        isAddedToCart: dynamicData['isAddedToCart'],
+        manufacturer: dynamicData['manufacturer'],
+        stockQuantity: dynamicData['stockQuantity'],
+      );
+    }).toList();
+
+    return products;
+  }
+
+  Future<List> ProductsCategoryList() async {
+    List<dynamic> data = await fetchProducts();
+
+    print(widget.category);
+
+    List<dynamic> tvProducts = data
+        .where((product) => product['category'] == widget.category)
+        .toList();
+
+    return tvProducts;
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Verifique se os produtos foram carregados antes de construir a interface.
+
+    return Scaffold(
+
+      appBar: CustomAppBar(
+        title: 'Produtos da Categoria: ${widget.category}',
+        backgroundColor: const Color.fromARGB(255, 217, 70, 119),
+      ),
+      body: ListView(
+        children: <Widget>[
+          const SizedBox(height: 15.0),
+          // Grade de cartões de produtos.
+          Container(
+            padding: const EdgeInsets.only(right: 5.0, left: 5.0),
+            width: MediaQuery.of(context).size.width - 30.0,
+            height: MediaQuery.of(context).size.height - 50.0,
+            child: GridView.count(
+              crossAxisCount: 2,
+              primary: false,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0,
+              childAspectRatio: 0.8,
+              children: _products.map((product) {
+                return _buildCard(
+                  product,
+                  context,
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(height: 15.0),
+        ],
+
+      ),
+      bottomNavigationBar: const BottomBar(),
+    );
+  }
+}
+
+// Função para construir um widget de cartão de produto.
+Widget _buildCard(Product product, context) {
+  return Padding(
+    padding:
+        const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 3.0),
+    child: InkWell(
+      onTap: () {
+        // Navega para a página de detalhes do produto.
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetail(
+              product: product,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFD155A8).withOpacity(0.2),
+              spreadRadius: 3.0,
+              blurRadius: 5.0,
+            )
+          ],
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    detailedProduct.name ?? '',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Preço: ${formatPrice(detailedProduct.price)}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Descrição: ${detailedProduct.description ?? ''}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Fabricante: ${detailedProduct.manufacturer ?? ''}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Quantidade em Estoque: ${detailedProduct.stockQuantity ?? 0}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
+                  product.isFavorite
+                      ? const Icon(Icons.favorite, color: Color(0xFFD155A8))
+                      : const Icon(Icons.favorite_border,
+                          color: Color(0xFFD155A8)),
                 ],
               ),
             ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Fechar'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      Fluttertoast.showToast(msg: 'Erro ao buscar detalhes do produto');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Adicionar Produto - ${widget.category}'),
-        backgroundColor: Color.fromARGB(255, 217, 70, 119),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Categoria: ${widget.category}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Nome do Produto*'),
-            ),
-            TextFormField(
-              controller: priceController,
-              decoration: const InputDecoration(labelText: 'Preço do Produto*'),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(
-                  RegExp(
-                      r'^\d+\.?\d{0,2}'),
+            Hero(
+              tag: product.imagePath ??
+                  '', // Use uma string vazia como valor padrão
+              child: Container(
+                height: 80.0,
+                width: 80.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(product.imagePath ??
+                        ''), // Use uma string vazia como valor padrão
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ],
-              validator: (value) {
-                if (value == null ||
-                    double.tryParse(value) == null ||
-                    double.parse(value) <= 0) {
-                  return 'Por favor, insira um preço válido maior que zero.';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: descriptionController,
-              decoration:
-                  const InputDecoration(labelText: 'Descrição do Produto*'),
-              maxLines: 3,
-            ),
-            TextFormField(
-              controller: manufacturerController,
-              decoration: const InputDecoration(labelText: 'Fabricante*'),
-            ),
-            TextFormField(
-              controller: stockQuantityController,
-              decoration:
-                  const InputDecoration(labelText: 'Quantidade em Estoque*'),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                if (nameController.text.isEmpty ||
-                    priceController.text.isEmpty ||
-                    descriptionController.text.isEmpty ||
-                    manufacturerController.text.isEmpty ||
-                    stockQuantityController.text.isEmpty) {
-                  Fluttertoast.showToast(
-                      msg: 'Por favor, preencha todos os campos obrigatórios.');
-                  return;
-                }
-
-                final newProduct = Product(
-                  id: getNextProductId(products),
-                  name: nameController.text,
-                  price: double.tryParse(priceController.text) ?? 0.0,
-                  description: descriptionController.text,
-                  category: widget.category,
-                  imagePath: 'images/produtos_genericos.png',
-                  manufacturer: manufacturerController.text,
-                  stockQuantity:
-                      int.tryParse(stockQuantityController.text) ?? 0,
-                );
-
-                final success = await cadastrarProduct(newProduct);
-
-                if (success) {
-                  setState(() {
-                    products.add(newProduct);
-                  });
-
-                  nameController.clear();
-                  priceController.clear();
-                  descriptionController.clear();
-                  manufacturerController.clear();
-                  stockQuantityController.clear();
-
-                  Fluttertoast.showToast(msg: 'Produto adicionado com sucesso');
-                } else {
-                  Fluttertoast.showToast(msg: 'Erro ao cadastrar produto');
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 217, 70, 119),
-              ),
-              child: const Text('Salvar Produto'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Produtos da Categoria: ${widget.category}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index];
-                  if (product.category == widget.category) {
-                    return Card(
-                      elevation: 2.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          exibirDetalhesProduto(context, product);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 236, 236, 236),
-                            border: Border.all(
-                              color: Color.fromARGB(255, 217, 70, 119),
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                product.name ?? '',
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold, color:Color.fromARGB(255, 217, 70, 119),),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                formatPrice(product.price),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                product.description ?? '',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(height: 8),
-                              Image.network(
-                                product.imagePath ?? '',
-                                fit: BoxFit.cover,
-                                height: 150.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-Future<bool> cadastrarProduct(Product newProduct) async {
-  try {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/products'),
-      headers: <String, String>{
-        'Content-type': 'application/json',
-      },
-      body: jsonEncode(newProduct.toJson()),
-    );
-
-    if (response.statusCode == 201) {
-      print('Produto cadastrado com sucesso');
-      return true;
-    } else {
-      print('Erro ao cadastrar produto: ${response.statusCode}');
-      return false;
-    }
-  } catch (e) {
-    print('Erro ao cadastrar produto: $e');
-    return false;
-  }
-}
-
-Future<List<Product>> selecionarProdutos() async {
-  try {
-    final response = await http.get(
-      Uri.parse('http://localhost:3000/products'),
-    );
-
-    if (response.statusCode == 200) {
-      final List<dynamic> produtos = jsonDecode(response.body);
-
-      List<Product> products = [];
-
-      for (var obj in produtos) {
-        Product p = Product(
-          id: obj["id"],
-          name: obj["name"],
-          category: obj["category"],
-          description: obj["description"],
-          imagePath: obj["imagePath"],
-          price: obj["price"]?.toDouble(),
-          manufacturer: obj["manufacturer"],
-          stockQuantity: obj["stockQuantity"],
-        );
-
-        products.add(p);
-      }
-
-      return products;
-    } else {
-      print('Erro ao buscar produtos: ${response.statusCode}');
-      return [];
-    }
-  } catch (e) {
-    print('Erro ao buscar produtos: $e');
-    return [];
-  }
-}
-
-Future<Product?> buscarDetalhesProduto(int productId) async {
-  try {
-    final response = await http.get(
-      Uri.parse('http://localhost:3000/products/$productId'),
-    );
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> produto = jsonDecode(response.body);
-      return Product(
-        id: produto["id"],
-        name: produto["name"],
-        category: produto["category"],
-        description: produto["description"],
-        imagePath: produto["imagePath"],
-        price: produto["price"]?.toDouble(),
-        manufacturer: produto["manufacturer"],
-        stockQuantity: produto["stockQuantity"],
-      );
-    } else {
-      print('Erro ao buscar detalhes do produto: ${response.statusCode}');
-      return null;
-    }
-  } catch (e) {
-    print('Erro ao buscar detalhes do produto: $e');
-    return null;
-  }
-}
-
-int getNextProductId(List<Product> products) {
-  if (products.isEmpty) {
-    return 1;
-  } else {
-    return products
-            .map((product) => product.id ?? 0)
-            .reduce((a, b) => a > b ? a : b) +
-        1;
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final Product product;
-
-  ProductCard({required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2.0,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.name ?? '',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 3.5),
             Text(
               formatPrice(product.price),
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                color: Color(0xFFD155A8),
+                fontFamily: 'Varela',
+                fontSize: 16.0,
+              ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              product.description ?? '',
-              style: const TextStyle(fontSize: 14),
+            Container(
+              height: 40.0,
+              child: Text(
+                product.name,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  color: Color(0xFFD155A8),
+                  fontFamily: 'Varela',
+                  fontSize: 14.0,
+                ),
+              ),
             ),
-            const SizedBox(height: 8),
-            Image.network(
-              product.imagePath ?? '',
-              fit: BoxFit.cover,
-              height: 150.0,
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Container(
+                color: const Color(0xFFD155A8),
+                height: 1.0,
+              ),
+            ),
+            // Exibe opções para adicionar ao carrinho.
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (!product.isAddedToCart) ...[
+                    const Icon(
+                      Icons.shopping_basket,
+                      color: Color(0xFFD155A8),
+                      size: 20.0,
+                    ),
+                    const Text(
+                      'Adicionar ao carrinho',
+                      style: TextStyle(
+                        fontFamily: 'Varela',
+                        color: Color(0xFFD155A8),
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ],
+                  if (product.isAddedToCart) ...[
+                    const Icon(
+                      Icons.remove_circle_outline,
+                      color: Color(0xFFD155A8),
+                      size: 12.0,
+                    ),
+                    const Text(
+                      '1',
+                      style: TextStyle(
+                        fontFamily: 'Varela',
+                        color: Color(0xFFD155A8),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.add_circle_outline,
+                      color: Color(0xFFD155A8),
+                      size: 12.0,
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }
