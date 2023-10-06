@@ -18,12 +18,15 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+
   bool _hasExecutedOnce = false;
   List<Product> _products = [];
+
 
   @override
   void initState() {
     super.initState();
+
     if (!_hasExecutedOnce) {
       fetchAndConvertProducts().then((products) {
         setState(() {
@@ -65,6 +68,7 @@ class _AddProductState extends State<AddProduct> {
         .toList();
 
     return tvProducts;
+
   }
 
   @override
@@ -72,6 +76,7 @@ class _AddProductState extends State<AddProduct> {
     // Verifique se os produtos foram carregados antes de construir a interface.
 
     return Scaffold(
+
       appBar: CustomAppBar(
         title: 'Produtos da Categoria: ${widget.category}',
         backgroundColor: const Color.fromARGB(255, 217, 70, 119),
@@ -100,6 +105,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           const SizedBox(height: 15.0),
         ],
+
       ),
       bottomNavigationBar: const BottomBar(),
     );

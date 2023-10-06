@@ -13,6 +13,7 @@ class ProductManagement extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Gerenciamento de Produtos'),
+        backgroundColor: Color.fromARGB(255, 217, 70, 119),
       ),
       body: Column(
         children: [
@@ -25,6 +26,9 @@ class ProductManagement extends StatelessWidget {
               itemCount: categorias.length,
               itemBuilder: (context, index) {
                 return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 217, 70, 119),
+                ),
                   onPressed: () {
                     // Ao clicar em uma categoria, você pode navegar para a página de produtos com a categoria selecionada.
                     Navigator.of(context).push(
