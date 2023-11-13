@@ -8,6 +8,7 @@ import 'package:fusion_shop_app/components/bottom_bar.dart';
 import 'package:fusion_shop_app/components/cart.dart';
 import 'components/product_management.dart';
 
+
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -117,16 +118,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ProductManagement(
-                      categorias: [
-                        'TVs',
-                        'Eletrodomésticos',
-                        'Smartphones',
-                        'Smartwaches',
-                        'Headphones',
-                        'Pendrives',
-                      ],
-                    ),
+                    builder: (context) => ProductManagement(),
                   ),
                 );
               },

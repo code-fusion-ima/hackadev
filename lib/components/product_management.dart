@@ -1,48 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:fusion_shop_app/components/product_add.dart';
-import 'product_list.dart';
-import 'horizontal_listview.dart';
+import 'product_add.dart';
+import 'api_service.dart';
 
-class ProductManagement extends StatelessWidget {
- ProductManagement({required this.categorias, Key? key}) : super(key: key);
+class ProductManagement extends StatefulWidget {
+  @override
+  _ProductManagement createState() => _ProductManagement();
+}
 
-  final List<String> categorias;
+class _ProductManagement extends State<ProductManagement> {
+  List<dynamic> products = [];
+  List<String> categories = [];
+
+  ApiService apiService = ApiService(); // Instância da ApiService
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts(); // Alteração para chamar a função correta
+  }
+
+  Future<void> fetchProducts() async {
+    try {
+      List<dynamic> fetchedProducts = await apiService.getProducts(); // Utilizando a função da ApiService
+      setState(() {
+        var categorySet = Set<String>.from(fetchedProducts.map((product) => product['category']));
+        categories = categorySet.toList();
+        products = fetchedProducts;
+      });
+    } catch (e) {
+      throw Exception('Falha ao carregar os produtos');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gerenciamento de Produtos'),
-        backgroundColor: Color.fromARGB(255, 217, 70, 119),
+        title: Text('Lista de Categorias'),
       ),
-      body: Column(
-        children: [
-          // Outros widgets ou conteúdo da sua página...
-
-          // Lista de botões para cada categoria:
-          Container(
-            height: 300, // Defina uma altura fixa aqui
-            child: ListView.builder(
-              itemCount: categorias.length,
-              itemBuilder: (context, index) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 217, 70, 119),
-                ),
-                  onPressed: () {
-                    // Ao clicar em uma categoria, você pode navegar para a página de produtos com a categoria selecionada.
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AddProduct(category: categorias[index]),
-                      ),
-                    );
-                  },
-                  child: Text(categorias[index]),
-                );
-              },
+      body: ListView.builder(
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              _navigateToAddProductPage(categories[index]);
+            },
+            child: ListTile(
+              title: Text(categories[index]), // Exibindo cada categoria
             ),
-          ),
-        ],
+          );
+        },
+      ),
+    );
+  }
+
+  // Função para navegar para a página AddProduct com a categoria selecionada
+  void _navigateToAddProductPage(String category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddProduct(category: category),
       ),
     );
   }

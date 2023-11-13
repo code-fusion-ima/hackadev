@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'product_list.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'api_service.dart';
 
 String formatPrice(double? price) {
   if (price == null) {
@@ -31,15 +33,27 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController manufacturerController = TextEditingController();
   final TextEditingController stockQuantityController = TextEditingController();
+  XFile? _selectedImage;
 
   @override
   void initState() {
     super.initState();
-    selecionarProdutos().then((loadedProducts) {
+    selecionarProdutos(widget.category).then((loadedProducts) {
       setState(() {
         products = loadedProducts;
       });
     });
+  }
+
+  Future<void> _selectImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+      });
+    }
   }
 
   void exibirDetalhesProduto(BuildContext context, Product produto) async {
@@ -126,8 +140,7 @@ class _AddProductState extends State<AddProduct> {
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(
-                  RegExp(
-                      r'^\d+\.?\d{0,2}'),
+                  RegExp(r'^\d+\.?\d{0,2}'),
                 ),
               ],
               validator: (value) {
@@ -159,13 +172,27 @@ class _AddProductState extends State<AddProduct> {
               ],
             ),
             const SizedBox(height: 20),
+
+            // Adicione o botão de seleção de imagem
+            ElevatedButton(
+              onPressed: _selectImage,
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 217, 70, 119), // Cor desejada
+              ),
+              child: Text(
+                'Selecionar Imagem',
+                style: TextStyle(color: Colors.white), // Cor do texto
+              ),
+            ),
+
             ElevatedButton(
               onPressed: () async {
                 if (nameController.text.isEmpty ||
                     priceController.text.isEmpty ||
                     descriptionController.text.isEmpty ||
                     manufacturerController.text.isEmpty ||
-                    stockQuantityController.text.isEmpty) {
+                    stockQuantityController.text.isEmpty ||
+                    _selectedImage == null) {
                   Fluttertoast.showToast(
                       msg: 'Por favor, preencha todos os campos obrigatórios.');
                   return;
@@ -177,7 +204,8 @@ class _AddProductState extends State<AddProduct> {
                   price: double.tryParse(priceController.text) ?? 0.0,
                   description: descriptionController.text,
                   category: widget.category,
-                  imagePath: 'images/produtos_genericos.png',
+                  imagePath: _selectedImage!
+                      .path, // Use o caminho da imagem selecionada
                   manufacturer: manufacturerController.text,
                   stockQuantity:
                       int.tryParse(stockQuantityController.text) ?? 0,
@@ -212,62 +240,73 @@ class _AddProductState extends State<AddProduct> {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index];
-                  if (product.category == widget.category) {
-                    return Card(
-                      elevation: 2.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          exibirDetalhesProduto(context, product);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 236, 236, 236),
-                            border: Border.all(
-                              color: Color.fromARGB(255, 217, 70, 119),
-                              width: 2.0,
+                child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return Card(
+                  child: GestureDetector(
+                    onTap: () {
+                      exibirDetalhesProduto(context, product);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                              product.imagePath ?? '',
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
                             ),
-                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name ?? '',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Descrição: ${product.description ?? ''}',
+                                ),
+                                Text(
+                                  'Preço: ${formatPrice(product.price)}',
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
                             children: [
-                              Text(
-                                product.name ?? '',
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold, color:Color.fromARGB(255, 217, 70, 119),),
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  // Ação de edição
+                                },
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                formatPrice(product.price),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                product.description ?? '',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(height: 8),
-                              Image.network(
-                                product.imagePath ?? '',
-                                fit: BoxFit.cover,
-                                height: 150.0,
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  // Ação de exclusão
+                                },
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-            ),
+                    ),
+                  ),
+                );
+              },
+            )),
           ],
         ),
       ),
@@ -278,14 +317,14 @@ class _AddProductState extends State<AddProduct> {
 Future<bool> cadastrarProduct(Product newProduct) async {
   try {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/products'),
+      Uri.parse('http://localhost:8000/api/produto/cadastro'),
       headers: <String, String>{
         'Content-type': 'application/json',
       },
       body: jsonEncode(newProduct.toJson()),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       print('Produto cadastrado com sucesso');
       return true;
     } else {
@@ -298,37 +337,40 @@ Future<bool> cadastrarProduct(Product newProduct) async {
   }
 }
 
-Future<List<Product>> selecionarProdutos() async {
+Future<List<Product>> selecionarProdutos(String? category) async {
+  if (category == null) {
+    print('Categoria não pode ser nula');
+    return [];
+  }
+
+  ApiService apiService = ApiService();
+
   try {
-    final response = await http.get(
-      Uri.parse('http://localhost:3000/products'),
-    );
+    List<dynamic> produtos = await apiService.getProducts();
 
-    if (response.statusCode == 200) {
-      final List<dynamic> produtos = jsonDecode(response.body);
+    List<Product> products = produtos
+        .where((obj) {
+          if (obj["category"] is String) {
+            return obj["category"] == category;
+          } else {
+            return false;
+          }
+        })
+        .map((obj) {
+          return Product(
+            id: obj["id"],
+            name: obj["name"],
+            category: obj["category"],
+            description: obj["description"],
+            imagePath: obj["imagePath"],
+            price: obj["price"]?.toDouble(),
+            manufacturer: obj["manufacturer"],
+            stockQuantity: obj["stockQuantity"],
+          );
+        })
+        .toList();
 
-      List<Product> products = [];
-
-      for (var obj in produtos) {
-        Product p = Product(
-          id: obj["id"],
-          name: obj["name"],
-          category: obj["category"],
-          description: obj["description"],
-          imagePath: obj["imagePath"],
-          price: obj["price"]?.toDouble(),
-          manufacturer: obj["manufacturer"],
-          stockQuantity: obj["stockQuantity"],
-        );
-
-        products.add(p);
-      }
-
-      return products;
-    } else {
-      print('Erro ao buscar produtos: ${response.statusCode}');
-      return [];
-    }
+    return products;
   } catch (e) {
     print('Erro ao buscar produtos: $e');
     return [];
@@ -338,7 +380,7 @@ Future<List<Product>> selecionarProdutos() async {
 Future<Product?> buscarDetalhesProduto(int productId) async {
   try {
     final response = await http.get(
-      Uri.parse('http://localhost:3000/products/$productId'),
+      Uri.parse('http://localhost:8000/api/produto/$productId'),
     );
 
     if (response.statusCode == 200) {
