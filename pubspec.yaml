@@ -17,6 +17,9 @@ dependencies:
   rating_dialog: ^2.0.4
   http: ^1.1.0
   fluttertoast: ^8.2.2
+  image_picker: ^1.0.4
+  provider: ^6.1.1
+  json_annotation: ^4.3.0
 
     
 
