@@ -45,12 +45,12 @@ Para executar o projeto em seu ambiente local, siga as etapas abaixo:
 
     ```bash
     flutter pub get
-    npm install na pasta back
+    composer install na pasta back-Laravel 
 
 4. **Execute o Aplicativo:**
 
     ```bash
-    npx json-server product.json na pasta back
+   php artisan serve na pasta back-Laravel
     flutter run
 
 ### Desenvolvedoras
